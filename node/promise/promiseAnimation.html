@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>promise_animation</title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+
+    .circular {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+
+    .circular1 {
+        background-color: red
+    }
+
+    .circular2 {
+        background-color: blue
+    }
+
+    .circular3 {
+        background-color: yellow
+    }
+</style>
+
+<body>
+    <div class="circular circular1" style="margin-left:0"></div>
+    <div class="circular circular2" style="margin-left:0"></div>
+    <div class="circular circular3" style="margin-left:0"></div>
+</body>
+
+</html>
+
+<script>
+    let circulars1 = document.querySelector('.circular1');
+    let circulars2 = document.querySelector('.circular2');
+    let circulars3 = document.querySelector('.circular3');
+
+    /**
+     * @method
+     * @param {obj} ball 目标节点, distce 终点值, cb 回调函数
+     * @desc 根据目标对象和最终坐标值移动
+     */
+    function promise_animation(ball, distance) {
+        return new Promise(function(resolve, reject) {
+            function _animate() {
+                setTimeout(function(){
+                    let marginLeft = ball.style.marginLeft;
+                    let ballMarginLeft = parseInt(marginLeft, 10); //第二个参数代表进制、10代表十进制
+
+                    if (ballMarginLeft == distance) {
+                        //如果当前坐标和最终坐标一致，
+                        resolve();
+                    } else{
+                        ballMarginLeft < distance ? ballMarginLeft++ : ballMarginLeft--;
+                        ball.style.marginLeft = ballMarginLeft + 'px';
+                        _animate();
+                    }
+                }, 13)
+            }
+            _animate();
+        })
+
+    }
+
+    function promiseAnimate(ball, distance) {
+        return new Promise(function (resolve, reject) {
+            function _animate() {
+                setTimeout(function () {
+                    var marginLeft = parseInt(ball.style.marginLeft, 10);
+                    if (marginLeft == distance) {
+                        // cb && cb();
+                        resolve();
+                    } else {
+                        marginLeft < distance ? marginLeft++ : marginLeft--;
+                        ball.style.marginLeft = marginLeft + 'px';
+                        // animate(ball, distance, cb);
+                        _animate();
+                    }
+                }, 13);
+            }
+            _animate();
+        });
+    }
+
+
+    promise_animation(circulars1, 100)
+        .then(function () {
+            return promise_animation(circulars2, 200)
+        })
+        .then(function () {
+            return promise_animation(circulars3, 300)
+        })
+        .then(function () {
+            return promise_animation(circulars3, 150)
+        })
+        .then(function () {
+            return promise_animation(circulars2, 150)
+        })
+        .then(function () {
+            return promise_animation(circulars1, 150)
+        })
+
+
+
+</script>
