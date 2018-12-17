@@ -6,6 +6,17 @@ let express = require('express');
 let app = express();
 const URI = 'https://daily.zhihu.com/';
 
+
+//设置跨域访问
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
+
 app.get('/', async (req, res) => {
     let result = await request(URI)//异步请求网页
     let data = []
@@ -36,7 +47,8 @@ app.get('/detail', async (req, res) => {
     res.send(data)//返回data给前台
 })
 
+
+
 app.listen(8001, () => {//启动一个8001端口的server服务
     console.log('Listening on port 8001')
-  })
-  
+})
