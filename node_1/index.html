@@ -29,14 +29,14 @@
     function getData() {
         $.ajax({
             type: "get",
-            url: "http://192.168.2.140:8001",
+            url: "http://127.0.0.1:8001",
             dataType: "json",
             success: function (data) {
                 if (data.length) {
                     data.forEach(item => {
                         let url = item.url;
                         let title = item.title;
-                        let _li = '<li><a href=' + url + '>'+ title +'</a></li>';
+                        let _li = '<li><a href=./detail?path=' + url + '>'+ title +'</a></li>';
                         $('ul').append(_li);
                     });
 

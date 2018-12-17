@@ -43,7 +43,10 @@ app.get('/detail', async (req, res) => {
     data.avatar_url = $('.meta img.avatar', element).attr('src')//获取头像url
     data.author = $('.meta .author', element).text()//获取作者
     data.bio = $('.meta .bio', element).text()//获取作者签名
-    data.content = $('.content', element).text()//获取文章内容
+    data.content = $('.content', element).html()//获取文章内容
+    data.question_title = $('h2.question-title', result).text()//获取文章title
+    data.headline_title = $('h1.headline-title',result).text();//
+    data.img_source = $('.img-source',result).text();//封面图片作者
     res.send(data)//返回data给前台
 })
 
