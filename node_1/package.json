@@ -1,0 +1,25 @@
+{
+  "name": "likai",
+  "version": "1.0.0",
+  "description": "likai ~",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "cheerio": "^1.0.0-rc.1",
+    "express": "^4.16.4",
+    "mysql": "^2.13.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "iconv-lite": "^0.4.24",
+    "lodash": "^4.17.11",
+    "util": "^0.11.1"
+  }
+}
