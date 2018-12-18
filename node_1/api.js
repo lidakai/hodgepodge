@@ -26,9 +26,9 @@ app.get('/', async (req, res) => {
         let $ele = $(ele)
         json.url = $ele.attr('href')//获取a元素的地址链接
         json.title = $ele.children().text()//获取标题
+        json.img = $ele.find('img').attr('src');
         data.push(json)
     })
-    console.log(data)
     res.send(data)//把data数据返回给前台
 })
 
