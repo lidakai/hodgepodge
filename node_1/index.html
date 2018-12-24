@@ -1,72 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="https://daily.zhihu.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <meta
+      name="description"
+      content="在中国，资讯类移动应用的人均阅读时长是 5 分钟，而在知乎日报，这个数字是 21。以独有的方式为你提供最高质、最深度、最有收获的阅读体验。"
+    />
+    <title>知乎日报 - 每天 3 次，每次 7 分钟</title>
+  </head>
+  <script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"
+  />
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"
+  ></script>
+  <link rel="stylesheet" href="./reset.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>知乎大学 - 爬虫数据</title>
-</head>
-<script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="./reset.css">
-
-<body>
+  <body>
     <div class="container-fluid box">
-        <h1>知乎大学 - 爬虫数据列表</h1>
-        <ul></ul>
+      <h1>知乎日报 - 每天 3 次，每次 7 分钟</h1>
+      <ul></ul>
     </div>
-</body>
-
+  </body>
 </html>
 
 <script>
-    function getData() {
-        $.ajax({
-            type: "get",
-            url: "http://127.0.0.1:8001",
-            dataType: "json",
-            success: function (data) {
-                if (data.length) {
-                    data.forEach(item => {
-                        let url = item.url;
-                        let title = item.title;
-                        let _li = '<li><a href=./detail.html?path=' + url + '>'+ title +'</a></li>';
-                        $('ul').append(_li);
-                    });
-
-                }
-
-            }
-        });
-    }
-    $(function () {
-        getData();
-    })
+  function getData() {
+    $.ajax({
+      type: "get",
+      url: "http://api.likai666.com",
+      dataType: "json",
+      success: function(data) {
+        if (data.length) {
+          data.forEach(item => {
+            let url = item.url;
+            let title = item.title;
+            let img = item.img;
+            let _li =
+              "<li><a href=./detail.html?path=" +
+              url +
+              '><img src="' +
+              img +
+              '" alt=' +
+              item.title +
+              " /><span>" +
+              title +
+              "</a></li>";
+            $("ul").append(_li);
+          });
+        }
+      }
+    });
+  }
+  $(function() {
+    getData();
+  });
 </script>
 
 <style scoped>
-    .box {
-        padding: 50px;
-    }
-    h1{
-        text-align: center;
-        font-weight: bold;
-    }
-    ul {
-        margin-top: 20px;
-        margin-left: 50px;
-    }
-    li{
-        height: 40px;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
+  .box {
+    padding: 50px;
+  }
+  h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+  }
+  ul {
+    margin-top: 20px;
+    margin-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  li {
+    font-size: 18px;
+    display: flex;
+    height: 344px;
+    align-items: center;
+    justify-content: center;
+  }
+  li > a {
+    display: inline-block;
+    width: 300px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  li > a img {
+    width: 240px;
+    height: 240px;
+    display: inline-block;
+    margin-bottom: 1em;
+  }
+  li >a span {
+    font-size: 16px;
+    color: #000;
+    display: block;
+    background: #fff;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 </style>
